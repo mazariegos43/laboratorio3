@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción Bershka</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#">
+                BERSHKA
+            </a>
+
+            <ul class="nav-menu">
+                <li>
+                    <a class="nav-link" href="index.html">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="Historia.html">
+                        Historia
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="recomendaciones.html">
+                        Recomendaciones
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="contactos.html">
+                        Contacto
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" href="inscripcion.html">
+                        Inscripción
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <main class="main-container">
+
+        <section class="bienvenida">
+            <h1>
+                ÚNETE A NUESTRO CLUB
+            </h1>
+            <p>
+                Inscríbete para recibir promociones exclusivas, noticias sobre colecciones y acceso anticipado a eventos.
+            </p>
+        </section>
+
+
+        <section class="bienvenida contacto-form">
+
+            <h2>
+                Formulario de Inscripción
+            </h2>
+
+            <form id="formularioInscripcion">
+
+                <div class="campo">
+                    <label for="nombre">
+                        Nombre completo
+                    </label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="name"
+                        placeholder="Escribe tu nombre y apellido"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="correo">
+                        Correo electrónico
+                    </label>
+                    <input
+                        type="email"
+                        id="correo"
+                        name="email"
+                        placeholder="ejemplo@correo.com"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="telefono">
+                        Teléfono
+                    </label>
+                    <input
+                        type="tel"
+                        id="telefono"
+                        name="phone"
+                        placeholder="Ingresa tu número de teléfono"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="categoria">
+                        Preferencia de estilo
+                    </label>
+                    <select id="categoria" name="category" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="chica">Mujer / Chica</option>
+                        <option value="chico">Hombre / Chico</option>
+                        <option value="ambos">Ambos</option>
+                    </select>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-agregar">
+                    Completar Inscripción
+                </button>
+
+            </form>
+
+            <h3 id="mensaje"></h3>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        document
+            .getElementById("formularioInscripcion")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+                const formulario = document.getElementById("formularioInscripcion");
+                const datos = new FormData(formulario);
+                const mensaje = document.getElementById("mensaje");
+
+                try {
+                    // Reemplaza la URL si vas a usar un ID de Formspree diferente para las inscripciones
+                    const respuesta = await fetch(
+                        "https://formspree.io/f/mgorakqr",
+                        {
+                            method: "POST",
+                            body: datos,
+                            headers: {
+                                "Accept": "application/json"
+                            }
+                        }
+                    );
+
+                    if (respuesta.ok) {
+                        mensaje.innerHTML = "✅ Te has inscrito correctamente.";
+                        formulario.reset();
+                    } else {
+                        mensaje.innerHTML = "❌ No se pudo completar la inscripción.";
+                    }
+
+                } catch {
+                    mensaje.innerHTML = "❌ Error al procesar el formulario.";
+                }
+
+            });
+    </script>
+
+</body>
+
+</html>
